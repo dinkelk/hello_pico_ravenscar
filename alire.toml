@@ -1,0 +1,21 @@
+name = "hello_pico_ravenscar"
+description = "Shiny new project"
+version = "0.1.0-dev"
+
+authors = ["Kevin Dinkel"]
+maintainers = ["Kevin Dinkel <kevin@dinkelcloud.com>"]
+maintainers-logins = ["dinkelk"]
+
+executables = ["hello_pico_ravenscar"]
+[[depends-on]]
+ravenscar_full_rp2040 = "~0.2.0"
+[[pins]]
+ravenscar_full_rp2040 = { url='https://github.com/dinkelk/ravenscar_full_rp2040.git', branch="pico-bsp" }
+
+[configuration.values]
+rp2040_hal.Use_Startup = false
+
+[[depends-on]]
+pico_bsp = "^2.0.0"
+[[pins]]
+pico_bsp = { url='https://github.com/dinkelk/pico_bsp.git', branch="ravenscar" }

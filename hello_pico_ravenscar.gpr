@@ -1,0 +1,33 @@
+with "config/hello_pico_ravenscar_config.gpr";
+with "ravenscar_build.gpr";
+
+project Hello_Pico_Ravenscar is
+
+   for Target use "arm-eabi";
+   for Runtime ("Ada") use Ravenscar_Build'Runtime ("Ada");
+
+   for Source_Dirs use ("src/", "config/");
+   for Object_Dir use "obj/" & Hello_Pico_Ravenscar_Config.Build_Profile;
+   for Create_Missing_Dirs use "True";
+   for Exec_Dir use "bin";
+   for Main use ("hello_pico_ravenscar.adb");
+
+   package Compiler is
+      for Default_Switches ("Ada") use Hello_Pico_Ravenscar_Config.Ada_Compiler_Switches;
+   end Compiler;
+
+   package Binder is
+      for Switches ("Ada") use ("-Es"); --  Symbolic traceback
+   end Binder;
+
+   package Install is
+      for Artifacts (".") use ("share");
+   end Install;
+
+   package Linker is
+      for Switches ("Ada") use
+         ("-Wl,-print-memory-usage",
+          "-Wl,-gc-sections");
+   end Linker;
+
+end Hello_Pico_Ravenscar;
